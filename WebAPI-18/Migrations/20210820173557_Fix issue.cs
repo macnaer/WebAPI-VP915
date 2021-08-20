@@ -1,22 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebAPI_18.Migrations
 {
-    public partial class Changedmodelsrelation : Migration
+    public partial class Fixissue : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Author",
-                table: "Books");
-
-            migrationBuilder.AddColumn<int>(
-                name: "PublisherId",
-                table: "Books",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
             migrationBuilder.CreateTable(
                 name: "Authors",
                 columns: table => new
@@ -44,36 +34,57 @@ namespace WebAPI_18.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    DateRead = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Rate = table.Column<int>(type: "int", nullable: true),
+                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateAdded = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PublisherId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Books_Publishers_PublisherId",
+                        column: x => x.PublisherId,
+                        principalTable: "Publishers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Book_Authors",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BookId = table.Column<int>(type: "int", nullable: false),
-                    AuthorId = table.Column<int>(type: "int", nullable: false),
-                    AuthorId1 = table.Column<int>(type: "int", nullable: false)
+                    AuthorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Book_Authors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Book_Authors_Authors_AuthorId1",
-                        column: x => x.AuthorId1,
+                        name: "FK_Book_Authors_Authors_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Book_Authors_Books_AuthorId",
-                        column: x => x.AuthorId,
+                        name: "FK_Book_Authors_Books_BookId",
+                        column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Books_PublisherId",
-                table: "Books",
-                column: "PublisherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Book_Authors_AuthorId",
@@ -81,47 +92,29 @@ namespace WebAPI_18.Migrations
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Book_Authors_AuthorId1",
+                name: "IX_Book_Authors_BookId",
                 table: "Book_Authors",
-                column: "AuthorId1");
+                column: "BookId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Books_Publishers_PublisherId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Books_PublisherId",
                 table: "Books",
-                column: "PublisherId",
-                principalTable: "Publishers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "PublisherId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Books_Publishers_PublisherId",
-                table: "Books");
-
             migrationBuilder.DropTable(
                 name: "Book_Authors");
 
             migrationBuilder.DropTable(
-                name: "Publishers");
-
-            migrationBuilder.DropTable(
                 name: "Authors");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Books_PublisherId",
-                table: "Books");
+            migrationBuilder.DropTable(
+                name: "Books");
 
-            migrationBuilder.DropColumn(
-                name: "PublisherId",
-                table: "Books");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Author",
-                table: "Books",
-                type: "nvarchar(max)",
-                nullable: true);
+            migrationBuilder.DropTable(
+                name: "Publishers");
         }
     }
 }

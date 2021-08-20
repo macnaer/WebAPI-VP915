@@ -2,7 +2,7 @@
 
 namespace WebAPI_18.Migrations
 {
-    public partial class Fixissue : Migration
+    public partial class Fixissue2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

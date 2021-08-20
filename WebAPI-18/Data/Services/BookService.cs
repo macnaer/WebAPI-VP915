@@ -17,8 +17,9 @@ namespace WebAPI_18.Data.Services
 
         public List<Book> GetAllBooks() => _context.Books.ToList();
 
-        public void AddBooksWithAuthors(BookVM book)
+        public void AddBookWithAuthors(BookVM book)
         {
+
             var _book = new Book()
             {
                 Title = book.Title,
@@ -31,10 +32,11 @@ namespace WebAPI_18.Data.Services
                 DateAdded = book.DateAdded,
                 PublisherId = book.PublisherId
             };
+
             _context.Books.Add(_book);
             _context.SaveChanges();
 
-            foreach(var id in book.AuthorIds)
+            foreach (var id in book.AuthorIds)
             {
                 var _book_author = new Book_Author()
                 {
@@ -42,9 +44,8 @@ namespace WebAPI_18.Data.Services
                     AuthorId = id
                 };
                 _context.Book_Authors.Add(_book_author);
-               _context.SaveChanges();
+                _context.SaveChanges();
             }
-            
         }
 
 

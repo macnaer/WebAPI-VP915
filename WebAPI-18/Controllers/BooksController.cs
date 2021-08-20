@@ -27,10 +27,10 @@ namespace WebAPI_18.Controllers
             return Ok(allBooks);
         }
 
-        [HttpPost("add-book-with-authors")]
-        public IActionResult AddBookWithAuthors([FromBody] BookVM book)
+        [HttpPost("add-book-with-autors")]
+        public IActionResult AddBook([FromBody] BookVM book)
         {
-            _bookService.AddBooksWithAuthors(book);
+            _bookService.AddBookWithAuthors(book);
             return Ok();
         }
 

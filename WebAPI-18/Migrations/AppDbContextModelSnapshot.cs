@@ -62,7 +62,7 @@ namespace WebAPI_18.Migrations
                     b.Property<int>("PublisherId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Rate")
+                    b.Property<int?>("Rate")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -85,9 +85,6 @@ namespace WebAPI_18.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AuthorId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
@@ -95,7 +92,7 @@ namespace WebAPI_18.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("AuthorId1");
+                    b.HasIndex("BookId");
 
                     b.ToTable("Book_Authors");
                 });
@@ -128,15 +125,15 @@ namespace WebAPI_18.Migrations
 
             modelBuilder.Entity("WebAPI_18.Data.Models.Book_Author", b =>
                 {
-                    b.HasOne("WebAPI_18.Data.Models.Book", "Book")
+                    b.HasOne("WebAPI_18.Data.Models.Author", "Author")
                         .WithMany("Book_Authors")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebAPI_18.Data.Models.Author", "Author")
+                    b.HasOne("WebAPI_18.Data.Models.Book", "Book")
                         .WithMany("Book_Authors")
-                        .HasForeignKey("AuthorId1")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
