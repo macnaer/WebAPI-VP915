@@ -28,7 +28,6 @@ namespace WebAPI_18.Data
                             Rate = 4,
                             Genre = "Thriller",
                             ImageURL = "https://images-na.ssl-images-amazon.com/images/I/41TM-a1v60L._SX321_BO1,204,203,200_.jpg",
-                            Author = "James Patterson",
                             DateAdded = DateTime.Now.AddDays(-65)
                         },
                         new Book()
@@ -38,7 +37,6 @@ namespace WebAPI_18.Data
                             IsRead = false,
                             Genre = "Detective",
                             ImageURL = "https://images-na.ssl-images-amazon.com/images/I/51tpY0oLw3L._SX330_BO1,204,203,200_.jpg",
-                            Author = "Old Farmer’s Almanac",
                             DateAdded = DateTime.Now.AddDays(-25)
                         }
                         

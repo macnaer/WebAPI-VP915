@@ -14,8 +14,12 @@ namespace WebAPI_18.Data.Models
         public DateTime? DateRead { get; set; }
         public int Rate { get; set; }
         public string Genre { get; set; }
-        public string Author { get; set; }
         public string ImageURL { get; set; }
         public DateTime DateAdded { get; set; }
+
+        public int PublisherId { get; set; }
+        public Publisher Publisher { get; set; }
+
+        public List<Book_Author> Book_Authors { get; set; }
     }
 }

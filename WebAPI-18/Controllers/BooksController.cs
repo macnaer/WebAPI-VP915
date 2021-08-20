@@ -33,12 +33,12 @@ namespace WebAPI_18.Controllers
             return Ok();
         }
 
-        [HttpPut("update-book/{id}")]
-        public IActionResult UpdateBook(int id, [FromBody] Book book)
-        {
-            var updatedBook = _bookService.UpdateBook(id, book);
-            return Ok(updatedBook);
-        }
+        //[HttpPut("update-book/{id}")]
+        //public IActionResult UpdateBook(int id, [FromBody] Book book)
+        //{
+        //    var updatedBook = _bookService.UpdateBook(id, book);
+        //    return Ok(updatedBook);
+        //}
 
         [HttpDelete("delete-book/{id}")]
         public IActionResult DeleteBook(int id)
