@@ -35,6 +35,8 @@ namespace WebAPI_18
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
             services.AddTransient<BookService>();
+            services.AddTransient<AuthorService>();
+            services.AddTransient<PublisherService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI_18", Version = "v1" });
