@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAPI_18.Data;
 using WebAPI_18.Data.Services;
+using WebAPI_18.Exceptions;
 
 namespace WebAPI_18
 {
@@ -58,6 +59,8 @@ namespace WebAPI_18
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.ConfigureCustomExceptionHandler();
 
             app.UseEndpoints(endpoints =>
             {
