@@ -34,6 +34,20 @@ namespace WebAPI_18.Controllers
             return Ok();
         }
 
+        [HttpGet("get-book-by-id/{id}")]
+        public IActionResult GetBookById(int id)
+        {
+            var _book = _bookService.GetBookById(id);
+            if(_book != null)
+            {
+                return Ok(_book);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         //[HttpPut("update-book/{id}")]
         //public IActionResult UpdateBook(int id, [FromBody] Book book)
         //{

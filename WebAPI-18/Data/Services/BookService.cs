@@ -48,39 +48,31 @@ namespace WebAPI_18.Data.Services
             }
         }
 
+        public BookWithAuthorVM GetBookById(int bookId)
+        {
+            var _book = _context.Books.Where(n => n.Id == bookId).Select(book => new BookWithAuthorVM()
+            {
+                Title = book.Title,
+                Description = book.Description,
+                IsRead = book.IsRead,
+                DateRead = book.DateRead,
+                Rate = book.Rate,
+                Genre = book.Genre,
+                ImageURL = book.ImageURL,
+                DateAdded = book.DateAdded,
+                PublisherName = book.Publisher.Name,
+                AuthorNames = book.Book_Authors.Select(n => n.Author.FullName).ToList()
+            }).FirstOrDefault();
 
-        //public void AddBook(Book book)
-        //{
-        //    _db.Books.Add(book);
-        //    _db.SaveChanges();
-        //}
+            return _book;
+        }
 
-        //public Book UpdateBook(int bookId, Book book)
-        //{
-        //    var _book = _db.Books.FirstOrDefault(n => n.Id == bookId);
-
-        //    if(_book != null)
-        //    {
-        //        _book.Title = book.Title;
-        //        _book.Description = book.Description;
-        //        _book.IsRead = book.IsRead;
-        //        _book.DateRead = book.DateRead;
-        //        _book.Rate = book.Rate;
-        //        _book.Genre = book.Genre;
-        //        _book.ImageURL = book.ImageURL;
-        //        _book.DateAdded = book.DateAdded;
-        //        _book.Author = book.Author;
-        //        _db.SaveChanges();
-        //    }
-
-        //    return _book;
-        //}
 
         public void DeleteBook(int bookId)
         {
             var _book = _context.Books.FirstOrDefault(n => n.Id == bookId);
-            
-            if(_book != null)
+
+            if (_book != null)
             {
                 _context.Books.Remove(_book);
                 _context.SaveChanges();
