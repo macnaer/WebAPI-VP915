@@ -15,9 +15,15 @@ namespace WebAPI_18.Data.Services
             _context = context;
         }
 
-        public List<Publisher> GetAllPublishers()
+        public List<Publisher> GetAllPublishers(string sortBy, string searchString, int page)
         {
-            var allPublishers = _context.Publishers.ToList();
+            var allPublishers = _context.Publishers.OrderBy(n => n.Name).ToList();
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                
+            }
+
+          
             return allPublishers;
         }
 

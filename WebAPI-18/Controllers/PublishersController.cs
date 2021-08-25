@@ -20,9 +20,9 @@ namespace WebAPI_18.Controllers
         }
 
         [HttpGet("get-all-publishers")]
-        public IActionResult GetAllPublishers()
+        public IActionResult GetAllPublishers(string sortBy, string searchString, int page)
         {
-            var allPublishers = _publisherService.GetAllPublishers();
+            var allPublishers = _publisherService.GetAllPublishers(sortBy, searchString, page);
             return Ok(allPublishers);
         }
 
