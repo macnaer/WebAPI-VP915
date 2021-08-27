@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,18 @@ namespace WebAPI_18.Controllers
     public class PublishersController : ControllerBase
     {
         private readonly PublisherService _publisherService;
-        public PublishersController(PublisherService publisherService)
+        private ILogger<PublishersController> _logger;
+
+        public PublishersController(PublisherService publisherService, ILogger<PublishersController> logger)
         {
             _publisherService = publisherService;
+            _logger = logger;
         }
 
         [HttpGet("get-all-publishers")]
         public IActionResult GetAllPublishers(string sortBy, string searchString, int page)
         {
+            //_logger.LogError($"sortBy: {sortBy}. This is very dangerius worning");
             var allPublishers = _publisherService.GetAllPublishers(sortBy, searchString, page);
             return Ok(allPublishers);
         }
